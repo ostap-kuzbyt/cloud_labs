@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   web:
     image: kuzbyt/lab1:latest
@@ -11,10 +13,12 @@ services:
       - SQLALCHEMY_DATABASE_URI=${SQLALCHEMY_DATABASE_URI}
 
   watchtower:
-    image: containrrr/watchtower
+    image: containrrr/watchtower:1.7.3
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_API_VERSION=1.44
     command: >
       --interval 60
       --cleanup
