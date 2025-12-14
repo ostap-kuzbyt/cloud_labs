@@ -1,0 +1,11 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+        "FUNCTIONS_WORKER_RUNTIME": "node",
+        "WEATHER_DEVICE_CONNECTION_STRING": "",
+        "CO2_DEVICE_CONNECTION_STRING": "",
+        "DELAY_MS": "1000",
+        "MAX_REQUESTS": "100"
+    }
+}
