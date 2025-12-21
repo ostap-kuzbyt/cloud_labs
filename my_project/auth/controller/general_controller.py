@@ -1,4 +1,8 @@
-
+"""
+2022
+apavelchak@gmail.com
+© Andrii Pavelchak
+"""
 
 from abc import ABC
 from typing import List, Dict

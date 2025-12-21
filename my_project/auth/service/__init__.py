@@ -1,31 +1,27 @@
-from .orders.GenderService import GenderService
-from .orders.UsersService import UserService
-from .orders.DeliveryStatusService import DeliveryStatusService
-from .orders.PaymentStatusService import PaymentStatusService
-from .orders.PizzaService import PizzaService
-from .orders.ToppingsService import ToppingsService
-from .orders.IngredientsService import IngredientsService
-from .orders.SaladService import SaladService
-from .orders.DrinksService import DrinksService
-from .orders.PizzaIngredientsService import PizzaIngredientsService
-from .orders.DeliveryPersonService import DeliveryPersonService
-from .orders.OrdersService import OrdersService
-from .orders.PizzaOrderService import PizzaOrderService
-from .orders.DeliveryOrdersService import DeliveryOrdersService
+"""
+2022
+apavelchak@gmail.com
+© Andrii Pavelchak
+"""
 
+from .orders.ProgramExerciseService import ProgramExerciseService
+from .orders.IndividualProgramService import IndividualProgramService
+from .orders.ScheduleService import ScheduleService
+from .orders.GymService import GymService
+from .orders.EquipmentService import EquipmentService
+from .orders.ClientService import ClientService
+from .orders.CoachService import CoachService
+from .orders.CoachScheduleService import CoachScheduleService
+from .orders.ExerciseService import ExerciseService
+from .orders.LocalProgramService import LocalProgramService
 
-genderService = GenderService()
-usersService = UserService()
-deliveryStatusService = DeliveryStatusService()
-paymentStatusService = PaymentStatusService()
-pizzaService = PizzaService()
-toppingsService = ToppingsService()
-ingredientsService = IngredientsService()
-saladService = SaladService()
-drinksService = DrinksService()
-pizzaIngredientsService = PizzaIngredientsService()
-deliveryPersonService = DeliveryPersonService()
-ordersService = OrdersService()
-pizzaOrderService = PizzaOrderService()
-deliveryOrdersService = DeliveryOrdersService()
-
+program_exercise_service = ProgramExerciseService()
+individual_program_service = IndividualProgramService()
+schedule_service = ScheduleService()
+gym_service = GymService()
+equipment_service = EquipmentService()
+client_service = ClientService()
+coach_service = CoachService()
+coach_schedule_service = CoachScheduleService()
+exercise_service = ExerciseService()
+local_program_service = LocalProgramService()

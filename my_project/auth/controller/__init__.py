@@ -1,26 +1,22 @@
-from my_project.auth.controller.orders.OrdersController import OrdersController
-from my_project.auth.controller.orders.PizzaController import PizzaController
-from my_project.auth.controller.orders.SaladController import SaladController
-from my_project.auth.controller.orders.UsersController import UsersController
-from my_project.auth.controller.orders.DrinksController import DrinksController
-from my_project.auth.controller.orders.GenderController import GenderController
-from my_project.auth.controller.orders.DeliveryOrdersController import DeliveryOrdersController
-from my_project.auth.controller.orders.DeliveryPersonController import DeliveryPersonController
-from my_project.auth.controller.orders.DeliveryStatusController import DeliveryStatusController
-from my_project.auth.controller.orders.PizzaOrderController import PizzaOrderController
-from my_project.auth.controller.orders.PaymentStatusController import PaymentStatusController
-from my_project.auth.controller.orders.IngredientsController import IngredientsController
+from my_project.auth.controller.orders.ScheduleController import ScheduleController
+from my_project.auth.controller.orders.GymController import GymController
+from my_project.auth.controller.orders.ClientController import ClientController
+from my_project.auth.controller.orders.CoachController import CoachController
+from my_project.auth.controller.orders.CoachScheduleController import CoachScheduleController
+from my_project.auth.controller.orders.EquipmentController import EquipmentController
+from my_project.auth.controller.orders.ExerciseController import ExerciseController
+from my_project.auth.controller.orders.LocalProgramController import LocalProgramController
+from my_project.auth.controller.orders.ProgramExerciseController import ProgramExerciseController
+from my_project.auth.controller.orders.IndividualProgramController import IndividualProgramController
 
 # Initialize controllers
-orders_controller = OrdersController()
-pizza_controller = PizzaController()
-salad_controller = SaladController()
-users_controller = UsersController()
-drinks_controller = DrinksController()
-gender_controller = GenderController()
-delivery_orders_controller = DeliveryOrdersController()
-delivery_person_controller = DeliveryPersonController()
-delivery_status_controller = DeliveryStatusController()
-pizza_order_controller = PizzaOrderController()
-payment_status_controller = PaymentStatusController()
-ingredients_controller = IngredientsController()
+schedule_controller = ScheduleController()
+gym_controller = GymController()
+client_controller = ClientController()
+coach_controller = CoachController()
+coach_schedule_controller = CoachScheduleController()
+equipment_controller = EquipmentController()
+exercise_controller = ExerciseController()
+local_program_controller = LocalProgramController()
+program_exercise_controller = ProgramExerciseController()
+individual_program_controller = IndividualProgramController()

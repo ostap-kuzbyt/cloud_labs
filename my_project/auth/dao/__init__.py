@@ -1,33 +1,29 @@
-
+"""
+2022
+apavelchak@gmail.com
+© Andrii Pavelchak
+"""
 
 # Orders DB imports for DAOs corresponding to each entity
-from .orders.GenderDao import GenderDAO
-from .orders.OrdersDAO import OrdersDAO
-from .orders.PizzaDAO import PizzaDAO
-from .orders.SaladDAO import SaladDAO
-from .orders.UsersDAO import UsersDAO
-from .orders.DrinksDAO import DrinksDAO
-from .orders.DeliveryOrdersDAO import DeliveryOrdersDAO
-from .orders.DeliveryPersonDAO import DeliveryPersonDAO
-from .orders.DeliveryStatusDAO import DeliveryStatusDAO
-from .orders.PizzaOrderDAO import PizzaOrderDAO
-from .orders.PaymentStatusDAO import PaymentStatusDAO
-from .orders.ToppingsDAO import ToppingsDAO
-from .orders.PizzaIngredientsDAO import PizzaIngredientsDAO
-from .orders.IngredientsDAO import IngredientsDAO
+from .orders.ScheduleDAO import ScheduleDAO
+from .orders.GymDAO import GymDAO
+from .orders.ClientDAO import ClientDAO
+from .orders.CoachDAO import CoachDAO
+from .orders.CoachScheduleDAO import CoachScheduleDAO
+from .orders.EquipmentDAO import EquipmentDAO
+from .orders.ExerciseDAO import ExerciseDAO
+from .orders.LocalProgramDAO import LocalProgramDAO
+from .orders.ProgramExerciseDAO import ProgramExerciseDAO
+from .orders.IndividualProgramDAO import IndividualProgramDAO
 
 # Initialize DAOs for each entity
-gender_dao = GenderDAO()
-orders_dao = OrdersDAO()
-pizza_dao = PizzaDAO()
-salad_dao = SaladDAO()
-users_dao = UsersDAO()
-drinks_dao = DrinksDAO()
-delivery_orders_dao = DeliveryOrdersDAO()
-delivery_person_dao = DeliveryPersonDAO()
-delivery_status_dao = DeliveryStatusDAO()
-pizza_order_dao = PizzaOrderDAO()
-payment_status_dao = PaymentStatusDAO()
-toppings_dao = ToppingsDAO()
-pizza_ingredients_dao = PizzaIngredientsDAO()
-ingredients_dao = IngredientsDAO()
+scheduleDao = ScheduleDAO()
+gymDao = GymDAO()
+clientDao = ClientDAO()
+coachDao = CoachDAO()
+coachScheduleDao = CoachScheduleDAO()
+equipmentDao = EquipmentDAO()
+exerciseDao = ExerciseDAO()
+localProgramDao = LocalProgramDAO()
+programExerciseDao = ProgramExerciseDAO()
+individualProgramDao = IndividualProgramDAO()

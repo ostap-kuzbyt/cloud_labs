@@ -1,10 +1,17 @@
-
+"""
+2022
+apavelchak@gmail.com
+© Andrii Pavelchak
+"""
 
 from abc import abstractmethod
 from typing import Dict
 
 
 class IDto:
+    """
+    Interface to put and extract DTO objects to/from domain objects.
+    """
 
     @abstractmethod
     def put_into_dto(self) -> Dict[str, object]:
