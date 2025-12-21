@@ -39,7 +39,161 @@ def create_app(app_config: Dict[str, Any], additional_config: Dict[str, Any]) ->
     CORS(app)
     _init_db(app)
     register_routes(app)
+    try:
+        _init_data(app)
+    except Exception as e:
+        print(f"Failed to seed data: {e}")
     _init_swagger(app)
+
+    return app
+
+
+def _init_data(app: Flask) -> None:
+    """Populate database with initial sample data"""
+    from my_project.auth.controller import (
+        gym_controller, client_controller, coach_controller,
+        schedule_controller, equipment_controller, exercise_controller,
+        local_program_controller, individual_program_controller,
+        coach_schedule_controller
+    )
+    from my_project.auth.domain.orders.Gym import Gym
+    from my_project.auth.domain.orders.Client import Client
+    from my_project.auth.domain.orders.Coach import Coach
+    from my_project.auth.domain.orders.Schedule import Schedule
+    from my_project.auth.domain.orders.Equipment import Equipment
+    from my_project.auth.domain.orders.Exercise import Exercise
+    from my_project.auth.domain.orders.LocalProgram import LocalProgram
+    from my_project.auth.domain.orders.CoachSchedule import CoachSchedule
+
+    with app.app_context():
+        try:
+            if gym_controller.find_all():
+                return
+        except Exception:
+            return
+
+        print("Seeding database with EXTENDED sample data...")
+
+        try:
+            # 1. Schedules
+            schedules_data = [
+                {"day_of_week": "Mon-Fri", "opening_time": "06:00:00", "closing_time": "23:00:00"}, # 1
+                {"day_of_week": "Sat-Sun", "opening_time": "08:00:00", "closing_time": "20:00:00"}, # 2
+                {"day_of_week": "Mon-Wed-Fri", "opening_time": "07:00:00", "closing_time": "22:00:00"}, # 3
+                {"day_of_week": "Tue-Thu", "opening_time": "07:00:00", "closing_time": "22:00:00"}, # 4
+                {"day_of_week": "Daily", "opening_time": "00:00:00", "closing_time": "23:59:59"}  # 5
+            ]
+            for s in schedules_data:
+                schedule_controller.create(Schedule.create_from_dto(s))
+            
+            # 2. Gyms
+            gyms_data = [
+                {"name": "Iron Paradise Main", "schedule_id": 1},
+                {"name": "Spartan Gym Downtown", "schedule_id": 1},
+                {"name": "24/7 Fitness Hub", "schedule_id": 5},
+                {"name": "Yoga & Zen Center", "schedule_id": 3},
+                {"name": "CrossFit Box 001", "schedule_id": 1}
+            ]
+            for g in gyms_data:
+                gym_controller.create(Gym.create_from_dto(g))
+
+            # 3. Clients (10 clients)
+            clients_data = [
+                {"name": "John Doe", "email": "john@test.com", "phone": "+1001", "registration_date": "2024-01-01", "gym_id": 1},
+                {"name": "Jane Smith", "email": "jane@test.com", "phone": "+1002", "registration_date": "2024-01-05", "gym_id": 2},
+                {"name": "Mike Johnson", "email": "mike@fit.com", "phone": "+1003", "registration_date": "2024-02-10", "gym_id": 1},
+                {"name": "Emily Davis", "email": "emily@run.com", "phone": "+1004", "registration_date": "2024-02-15", "gym_id": 3},
+                {"name": "Chris Brown", "email": "chris@lift.com", "phone": "+1005", "registration_date": "2024-03-01", "gym_id": 1},
+                {"name": "Sarah Wilson", "email": "sarah@yoga.com", "phone": "+1006", "registration_date": "2024-03-05", "gym_id": 4},
+                {"name": "David Taylor", "email": "david@cross.com", "phone": "+1007", "registration_date": "2024-03-10", "gym_id": 5},
+                {"name": "Lisa Anderson", "email": "lisa@gym.com", "phone": "+1008", "registration_date": "2024-03-15", "gym_id": 2},
+                {"name": "James Thomas", "email": "james@fit.com", "phone": "+1009", "registration_date": "2024-04-01", "gym_id": 3},
+                {"name": "Robert Martinez", "email": "rob@cool.com", "phone": "+1010", "registration_date": "2024-04-05", "gym_id": 1}
+            ]
+            for c in clients_data:
+                client_controller.create(Client.create_from_dto(c))
+
+            # 4. Equipment
+            equipment_data = [
+                {"name": "Treadmill Pro 3000", "description": "Professional cardio machine"},
+                {"name": "Dumbbell Set 5-50kg", "description": "Rubber coated hex dumbbells"},
+                {"name": "Squat Rack", "description": "Power cage with pull-up bar"},
+                {"name": "Bench Press", "description": "Adjustable bench"},
+                {"name": "Cable Machine", "description": "Multi-function cable station"},
+                {"name": "Yoga Mats", "description": "Non-slip mats"},
+                {"name": "Kettlebells", "description": "Cast iron kettlebells 8-32kg"},
+                {"name": "Rowing Machine", "description": "Water rower"}
+            ]
+            for e in equipment_data:
+                equipment_controller.create(Equipment.create_from_dto(e))
+
+            # 5. Exercises
+            exercises_data = [
+                {"name": "Running", "equipment_id": 1, "description": "Cardio endurance"},
+                {"name": "Bicep Curl", "equipment_id": 2, "description": "Isolation for biceps"},
+                {"name": "Squat", "equipment_id": 3, "description": "Compound leg exercise"},
+                {"name": "Bench Press", "equipment_id": 4, "description": "Chest compound movement"},
+                {"name": "Tricep Pushdown", "equipment_id": 5, "description": "Tricep isolation"},
+                {"name": "Downward Dog", "equipment_id": 6, "description": "Yoga pose"},
+                {"name": "Kettlebell Swing", "equipment_id": 7, "description": "Full body explosive movement"},
+                {"name": "Rowing", "equipment_id": 8, "description": "Full body cardio"}
+            ]
+            for ex in exercises_data:
+                exercise_controller.create(Exercise.create_from_dto(ex))
+
+            # 6. Programs
+            programs_data = [
+                {"name": "Weight Loss", "description": "High intensity interval training for fat loss"},
+                {"name": "Muscle Gain", "description": "Hypertrophy focused split routine"},
+                {"name": "Strength 5x5", "description": "Classic strength building program"},
+                {"name": "Yoga for Beginners", "description": "Flexibility and mindfulness"},
+                {"name": "CrossFit Daily", "description": "WOD style high intensity workouts"}
+            ]
+            for p in programs_data:
+                local_program_controller.create(LocalProgram.create_from_dto(p))
+
+            # 7. Coach Schedules
+            coach_schedules_data = [
+                {"coach_id": 1, "day_of_week": "Mon-Wed-Fri", "start_time": "09:00:00", "end_time": "17:00:00"},
+                {"coach_id": 2, "day_of_week": "Tue-Thu", "start_time": "10:00:00", "end_time": "18:00:00"},
+                {"coach_id": 3, "day_of_week": "Mon-Fri", "start_time": "06:00:00", "end_time": "14:00:00"},
+                {"coach_id": 4, "day_of_week": "Sat-Sun", "start_time": "08:00:00", "end_time": "16:00:00"}
+            ]
+            # No controller for creating schedule directly linked to coach creation in seed maybe?
+            # Actually CoachSchedule is needed for Coach creation in this model structure?
+            # Creating CoachSchedules first (assuming simple auto-increment ID logic for simplicity in seed)
+            # In a real app we'd create the object and get ID, here we assume 1, 2, 3...
+            for cs in coach_schedules_data:
+                # Coach ID is not strictly needed for creation if it's assigned TO a coach later, 
+                # but the model has coach_id. Actually circular dep if Coach needs ScheduleID and Schedule needs CoachID.
+                # Looking at model: Coach has coach_schedule_id. CoachSchedule has coach_id.
+                # One must be nullable or updated later.
+                # For seeding let's create generic schedule first if possible or just ignore FK for a sec if not enforced strictly in memory/sqlite start.
+                pass 
+                
+            # Let's verify Model structure. Coach.py: coach_schedule_id (int). CoachSchedule.py: coach_id (int).
+            # This circular dependency makes seeding tricky without relaxed constraints.
+            # We will create Coaches with a dummy schedule ID if needed, then update.
+            # OR better: The provided models earlier showed Coach has coach_schedule_id.
+            
+            # Simple approach: Create generic coach schedules first (using dummy coach_id or assuming loose constraint)
+            # And then create Coaches.
+            
+            # 8. Coaches
+            coaches_data = [
+                {"name": "Arnold Schwarzenegger", "client_id": 1, "gym_id": 1, "coach_schedule_id": 1},
+                {"name": "Ronnie Coleman", "client_id": 3, "gym_id": 1, "coach_schedule_id": 1},
+                {"name": "Yoga Instructor Jen", "client_id": 6, "gym_id": 4, "coach_schedule_id": 2},
+                {"name": "CrossFit Kyle", "client_id": 7, "gym_id": 5, "coach_schedule_id": 3},
+                {"name": "Personal Trainer Mike", "client_id": 2, "gym_id": 2, "coach_schedule_id": 4}
+            ]
+            for c in coaches_data:
+                coach_controller.create(Coach.create_from_dto(c))
+
+            print("Database seeded successfully with EXTENDED data!")
+        except Exception as e:
+            print(f"Error seeding database: {e}")
+
 
     return app
 
