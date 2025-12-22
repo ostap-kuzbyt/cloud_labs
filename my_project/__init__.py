@@ -210,7 +210,7 @@ def _init_swagger(app: Flask) -> None:
     
     api = Api(
         app, 
-        title='Gym Management System API',
+        title='Gym Management System API BEBEBBEBEBEBEBE',
         description='API for gym',
         version='1.0',
         doc='/api/docs/',
